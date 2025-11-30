@@ -1,0 +1,474 @@
+# ============================================================================
+# ILLUMINATOR CENTRAL BILLING CONFIGURATION
+# City of Joondalup - Complete Facility Mapping
+# ============================================================================
+#
+# This configuration maps Illuminator Central lighting scenarios to bookable
+# areas for billing purposes.
+#
+# KEY CONCEPTS:
+# -------------
+# FACILITY = Physical location where lights are installed
+#            Example: "Admiral Park" (the actual park/venue)
+#
+# SCENARIO = Facility + Lighting level (what Illuminator tracks)
+#            Example: "Admiral Park - North 100 lux"
+#
+# AREA = What customers actually BOOK and PAY FOR
+#        Example: "Field" (the bookable area at Admiral Park)
+#
+# POWER RATINGS:
+# --------------
+# Power ratings (kW) are NOT in this config file.
+# They come from the CSV export column: "Rated power (kW)"
+# This ensures accuracy and eliminates manual entry errors.
+#
+# COMPOSITE RULES:
+# ----------------
+# When a higher lux level includes a lower lux level, the lower level's
+# duration becomes 0 minutes to avoid double-billing.
+# Example: If "100 lux" is on, "50 lux" is redundant (included in 100 lux).
+#
+# ============================================================================
+
+# Default electricity rate (can be overridden in Streamlit sidebar)
+default_rate_per_kwh: 0.263
+
+# ============================================================================
+# SCENARIO TO AREA MAPPINGS
+# ============================================================================
+# Maps each Illuminator scenario to its billable area name.
+# The area name appears on invoices as the bookable facility.
+
+scenario_mappings:
+  # --------------------------------------------------------------------------
+  # FACILITY 1: Admiral Park
+  # Single field with North and South lighting zones
+  # --------------------------------------------------------------------------
+  "Admiral Park - North 50 lux": "Field"
+  "Admiral Park - North 100 lux": "Field"
+  "Admiral Park - South 50 lux": "Field"
+  "Admiral Park - South 100 lux": "Field"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 2: MacDonald Park
+  # Single field with North and South lighting zones
+  # --------------------------------------------------------------------------
+  "MacDonald Park North - 50 lux": "Field"
+  "MacDonald Park North - 100 lux": "Field"
+  "MacDonald Park South - 50 LUX": "Field"
+  "MacDonald Park South - 100 LUX": "Field"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 3: Chichester Park South
+  # Two separate bookable areas
+  # --------------------------------------------------------------------------
+  "Chichester Park South - Pitch 1 50 lux": "Pitch 1"
+  "Chichester Park South - Pitch 1 100 lux": "Pitch 1"
+  "Chichester Park South - Pitch 2 and 3 50 lux": "Pitch 2 and 3"
+  "Chichester Park South - Pitch 2 and 3 100 lux": "Pitch 2 and 3"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 4: Percy Doyle
+  # Five separate bookable pitches
+  # --------------------------------------------------------------------------
+  "Percy Doyle - Pitch 1 50 lux": "Pitch 1"
+  "Percy Doyle - Pitch 1 100 lux": "Pitch 1"
+  "Percy Doyle - Pitch 2 50 lux": "Pitch 2"
+  "Percy Doyle - Pitch 2 100 lux": "Pitch 2"
+  "Percy Doyle - Pitch 3 50 lux": "Pitch 3"
+  "Percy Doyle - Pitch 3 100 lux": "Pitch 3"
+  "Percy Doyle - Pitch 4 50 lux": "Pitch 4"
+  "Percy Doyle - Pitch 4 100 lux": "Pitch 4"
+  "Percy Doyle - Pitch 5 50 lux": "Pitch 5"
+  "Percy Doyle - Pitch 5 100 lux": "Pitch 5"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 5: Kingsley Park
+  # Single field
+  # --------------------------------------------------------------------------
+  "Kingsley Park - 50 lux": "Field"
+  "Kingsley Park - 100 lux": "Field"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 6: Iluka District Open Space
+  # Single open space area
+  # --------------------------------------------------------------------------
+  "Iluka District Open Space - 50 lux": "Open Space"
+  "Iluka District Open Space - 100 lux": "Open Space"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 7: Craigie Leisure Centre
+  # Single leisure centre facility
+  # --------------------------------------------------------------------------
+  "Craigie Leisure Centre - 50 lux": "Leisure Centre"
+  "Craigie Leisure Centre - 100 lux": "Leisure Centre"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 8: Forrest Park
+  # Single field
+  # --------------------------------------------------------------------------
+  "Forrest Park - 50 lux": "Field"
+  "Forrest Park - 100 lux": "Field"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 9: Hodges Drive Park
+  # Single field
+  # --------------------------------------------------------------------------
+  "Hodges Drive Park - 50 lux": "Field"
+  "Hodges Drive Park - 100 lux": "Field"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 10: HBF Arena
+  # Two separate bookable areas
+  # --------------------------------------------------------------------------
+  "HBF Arena - Main Pitch 50 lux": "Main Pitch"
+  "HBF Arena - Main Pitch 100 lux": "Main Pitch"
+  "HBF Arena - Training Pitch 50 lux": "Training Pitch"
+  "HBF Arena - Training Pitch 100 lux": "Training Pitch"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 11: Macaulay Park
+  # Single field
+  # --------------------------------------------------------------------------
+  "Macaulay Park - 50 lux": "Field"
+  "Macaulay Park - 100 lux": "Field"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 12: Penistone Park
+  # Single field
+  # --------------------------------------------------------------------------
+  "Penistone Park - 50 lux": "Field"
+  "Penistone Park - 100 lux": "Field"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 13: Warrandyte Park
+  # Single field
+  # --------------------------------------------------------------------------
+  "Warrandyte Park - 50 lux": "Field"
+  "Warrandyte Park - 100 lux": "Field"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 14: Whitfords Nodes Park
+  # Single field
+  # --------------------------------------------------------------------------
+  "Whitfords Nodes Park - 50 lux": "Field"
+  "Whitfords Nodes Park - 100 lux": "Field"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 15: Beaumaris Park
+  # Single field
+  # --------------------------------------------------------------------------
+  "Beaumaris Park - 50 lux": "Field"
+  "Beaumaris Park - 100 lux": "Field"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 16: Bramston Park
+  # Single field
+  # --------------------------------------------------------------------------
+  "Bramston Park - 50 lux": "Field"
+  "Bramston Park - 100 lux": "Field"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 17: Chichester Park North
+  # Single field
+  # --------------------------------------------------------------------------
+  "Chichester Park North - 50 lux": "Field"
+  "Chichester Park North - 100 lux": "Field"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 18: Currambine Community Sporting Facility
+  # Single sporting facility
+  # --------------------------------------------------------------------------
+  "Currambine Community Sporting Facility - 50 lux": "Sporting Facility"
+  "Currambine Community Sporting Facility - 100 lux": "Sporting Facility"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 19: Ellersdale Park
+  # Single field
+  # --------------------------------------------------------------------------
+  "Ellersdale Park - 50 lux": "Field"
+  "Ellersdale Park - 100 lux": "Field"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 20: Hawker Park
+  # Single field
+  # --------------------------------------------------------------------------
+  "Hawker Park - 50 lux": "Field"
+  "Hawker Park - 100 lux": "Field"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 21: Heathridge Park
+  # Single field
+  # --------------------------------------------------------------------------
+  "Heathridge Park - 50 lux": "Field"
+  "Heathridge Park - 100 lux": "Field"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 22: Mawson Park
+  # Single field
+  # --------------------------------------------------------------------------
+  "Mawson Park - 50 lux": "Field"
+  "Mawson Park - 100 lux": "Field"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 23: Mirror Park
+  # Single field
+  # --------------------------------------------------------------------------
+  "Mirror Park - 50 lux": "Field"
+  "Mirror Park - 100 lux": "Field"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 24: Sorrento Duncraig Sporting Complex
+  # Single sporting complex
+  # --------------------------------------------------------------------------
+  "Sorrento Duncraig Sporting Complex - 50 lux": "Sporting Complex"
+  "Sorrento Duncraig Sporting Complex - 100 lux": "Sporting Complex"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 25: Tom Simpson Park
+  # Single field
+  # --------------------------------------------------------------------------
+  "Tom Simpson Park - 50 lux": "Field"
+  "Tom Simpson Park - 100 lux": "Field"
+
+  # --------------------------------------------------------------------------
+  # FACILITY 26: Windermere Park
+  # Single field
+  # --------------------------------------------------------------------------
+  "Windermere Park - 50 lux": "Field"
+  "Windermere Park - 100 lux": "Field"
+
+
+# ============================================================================
+# COMPOSITE RULES
+# ============================================================================
+# Defines which lower lux scenarios are included in higher lux scenarios
+# to prevent double-billing.
+#
+# When a higher lux scenario is active, any included lower lux scenarios
+# running during the same time period will have their billable duration
+# set to 0 minutes (marked as "included in [higher scenario]").
+
+  Santiago Park - Community Floods: Common Area
+  'Santiago Park - All On - 50 Lux ': Field
+  Penistone Park - West 50 lux: "Field"
+  Penistone Park - East 250 lux: "Field"
+  Warrandyte Park - North 50 lux: "Field"
+  Warrandyte Park - South 50 lux: "Field"
+  Warrandyte Park - North 100 lux: "Field"
+  Windermere Park - Cr Nets 500 lux: Cricket Nets
+  Emerald Park - 200 lux Nets: Cricket Nets
+  Emerald Park - 50 lux: Field
+  Percy Doyle Pitch 3 - 50 lux: Pitch 3
+  MacDonald Park South - 500 lux Cr Nets: Cricket Nets
+  Percy Doyle Pitch 2 - 50 Lux: Pitch 2
+  Timberlane Park - Oval 50 Lux: Field
+  Timberlane Park - Oval 100 Lux: Field
+  Falkland Park - 50 lux: Field
+  Seacrest Park - West 50 lux: Field
+  Seacrest Park - East 50 lux: Field
+  Seacrest Park - West 100 lux: Field
+  Prince Regent Park - 50 Lux East: Field
+  Prince Regent Park - 50 Lux West: Field
+  Kingsley Park - CR Nets 200 lux: Custom Nets
+  Kingsley Park - Senior 100 lux: "Field"
+  Kingsley Park - Senior 50 lux: "Field"
+  Kingsley Park - Training 50 lux: "Field"
+  Percy Doyle Football Oval - Training 50 lux: Field
+  Bramston Oval - East 50 lux: Field
+  Bramston Oval - West 50 lux: Field
+  Heathridge Park - 50 Lux: "Field"
+  Iluka District Open Space - N/W 50 lux: "Open Space"
+  Iluka District Open Space - S/W 50 lux: "Open Space"
+  Iluka District Open Space - N/E 50 lux: "Open Space"
+  Iluka District Open Space - S/E 50 lux: "Open Space"
+  Iluka District Open Space - Pitch 1 100 lux: "Open Space"
+  Warwick Open Space - West 50 lux: Field
+  Warwick Open Space - West 250 lux: Field
+  Warwick Open Space - South 50 lux: Field
+  Kingsley Park - Junior 50 lux: "Field"
+  Kingsley Park - Junior 100 lux: "Field"
+  Ellersdale Park - 50 Lux: "Field"
+  Ellersdale Park - 100 Lux: "Field"
+  Ocean Reef Park - 50 Lux: Field
+  Ocean Reef Park - 100 lux: Field
+  Santiago Park - All On - 100 Lux: Field
+  Percy Doyle Pitch 1 - 350 lux: Pitch 1
+  Percy Doyle Pitch 1 - 200 lux: Pitch 1
+  Percy Doyle Pitch 1 - 100 lux: Pitch 1
+  Juniper Park - Lights: Field
+  Warrandyte Park - South 100 lux: "Field"
+  Percy Doyle Pitch 2 - 100 Lux: Pitch 2
+  Percy Doyle Football Oval - Comp 100 lux: Field
+  Percy Doyle Pitch 3 - 100 lux: Pitch 3
+composite_rules:
+  # Admiral Park - North zone
+  "Admiral Park - North 100 lux":
+    includes:
+    - "Admiral Park - North 50 lux"
+
+  # Admiral Park - South zone
+  "Admiral Park - South 100 lux":
+    includes:
+    - "Admiral Park - South 50 lux"
+
+  # MacDonald Park - North zone
+  "MacDonald Park North - 100 lux":
+    includes:
+    - "MacDonald Park North - 50 lux"
+
+  # MacDonald Park - South zone
+  "MacDonald Park South - 100 LUX":
+    includes:
+    - "MacDonald Park South - 50 LUX"
+
+  # Chichester Park South - Pitch 1
+  "Chichester Park South - Pitch 1 100 lux":
+    includes:
+    - "Chichester Park South - Pitch 1 50 lux"
+
+  # Chichester Park South - Pitch 2 and 3
+  "Chichester Park South - Pitch 2 and 3 100 lux":
+    includes:
+    - "Chichester Park South - Pitch 2 and 3 50 lux"
+
+  # Percy Doyle - Pitch 1
+  "Percy Doyle - Pitch 1 100 lux":
+    includes:
+    - "Percy Doyle - Pitch 1 50 lux"
+
+  # Percy Doyle - Pitch 2
+  "Percy Doyle - Pitch 2 100 lux":
+    includes:
+    - "Percy Doyle - Pitch 2 50 lux"
+
+  # Percy Doyle - Pitch 3
+  "Percy Doyle - Pitch 3 100 lux":
+    includes:
+    - "Percy Doyle - Pitch 3 50 lux"
+
+  # Percy Doyle - Pitch 4
+  "Percy Doyle - Pitch 4 100 lux":
+    includes:
+    - "Percy Doyle - Pitch 4 50 lux"
+
+  # Percy Doyle - Pitch 5
+  "Percy Doyle - Pitch 5 100 lux":
+    includes:
+    - "Percy Doyle - Pitch 5 50 lux"
+
+  # Kingsley Park
+  "Kingsley Park - 100 lux":
+    includes:
+    - "Kingsley Park - 50 lux"
+
+  # Iluka District Open Space
+  "Iluka District Open Space - 100 lux":
+    includes:
+    - "Iluka District Open Space - 50 lux"
+
+  # Craigie Leisure Centre
+  "Craigie Leisure Centre - 100 lux":
+    includes:
+    - "Craigie Leisure Centre - 50 lux"
+
+  # Forrest Park
+  "Forrest Park - 100 lux":
+    includes:
+    - "Forrest Park - 50 lux"
+
+  # Hodges Drive Park
+  "Hodges Drive Park - 100 lux":
+    includes:
+    - "Hodges Drive Park - 50 lux"
+
+  # HBF Arena - Main Pitch
+  "HBF Arena - Main Pitch 100 lux":
+    includes:
+    - "HBF Arena - Main Pitch 50 lux"
+
+  # HBF Arena - Training Pitch
+  "HBF Arena - Training Pitch 100 lux":
+    includes:
+    - "HBF Arena - Training Pitch 50 lux"
+
+  # Macaulay Park
+  "Macaulay Park - 100 lux":
+    includes:
+    - "Macaulay Park - 50 lux"
+
+  # Penistone Park
+  "Penistone Park - 100 lux":
+    includes:
+    - "Penistone Park - 50 lux"
+
+  # Warrandyte Park
+  "Warrandyte Park - 100 lux":
+    includes:
+    - "Warrandyte Park - 50 lux"
+
+  # Whitfords Nodes Park
+  "Whitfords Nodes Park - 100 lux":
+    includes:
+    - "Whitfords Nodes Park - 50 lux"
+
+  # Beaumaris Park
+  "Beaumaris Park - 100 lux":
+    includes:
+    - "Beaumaris Park - 50 lux"
+
+  # Bramston Park
+  "Bramston Park - 100 lux":
+    includes:
+    - "Bramston Park - 50 lux"
+
+  # Chichester Park North
+  "Chichester Park North - 100 lux":
+    includes:
+    - "Chichester Park North - 50 lux"
+
+  # Currambine Community Sporting Facility
+  "Currambine Community Sporting Facility - 100 lux":
+    includes:
+    - "Currambine Community Sporting Facility - 50 lux"
+
+  # Ellersdale Park
+  "Ellersdale Park - 100 lux":
+    includes:
+    - "Ellersdale Park - 50 lux"
+
+  # Hawker Park
+  "Hawker Park - 100 lux":
+    includes:
+    - "Hawker Park - 50 lux"
+
+  # Heathridge Park
+  "Heathridge Park - 100 lux":
+    includes:
+    - "Heathridge Park - 50 lux"
+
+  # Mawson Park
+  "Mawson Park - 100 lux":
+    includes:
+    - "Mawson Park - 50 lux"
+
+  # Mirror Park
+  "Mirror Park - 100 lux":
+    includes:
+    - "Mirror Park - 50 lux"
+
+  # Sorrento Duncraig Sporting Complex
+  "Sorrento Duncraig Sporting Complex - 100 lux":
+    includes:
+    - "Sorrento Duncraig Sporting Complex - 50 lux"
+
+  # Tom Simpson Park
+  "Tom Simpson Park - 100 lux":
+    includes:
+    - "Tom Simpson Park - 50 lux"
+
+  # Windermere Park
+  "Windermere Park - 100 lux":
+    includes:
+    - "Windermere Park - 50 lux"
